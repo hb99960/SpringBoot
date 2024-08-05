@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!-- bean definitions here -->
+    <bean id="userDataProvider"
+          class="com.ioc.coupling.UserDatabaseProvider">
+
+    </bean>
+
+    <bean id="mongoDatabaseProvider"
+          class="com.ioc.coupling.MongoDatabaseProvider">
+
+    </bean>
+
+    <bean id="webServiceDatabaseProvider"
+          class="com.ioc.coupling.WebServiceDataProvider">
+
+    </bean>
+
+    <bean id="userManagerWithUserDatabaseProvider" class="com.ioc.coupling.UserManager">
+        <constructor-arg ref="userDataProvider" />
+    </bean>
+
+    <bean id="userManagerWithMongoDatabaseProvider" class="com.ioc.coupling.UserManager">
+        <constructor-arg ref="mongoDatabaseProvider" />
+    </bean>
+
+    <bean id="userManagerWithWebServiceDatabaseProvider" class="com.ioc.coupling.UserManager">
+        <constructor-arg ref="webServiceDatabaseProvider" />
+    </bean>
+
+</beans>

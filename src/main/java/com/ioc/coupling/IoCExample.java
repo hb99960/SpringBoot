@@ -1,18 +1,28 @@
-package com.loose.coupling;
+package com.ioc.coupling;
 
-public class LooseCouplingExample {
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+public class IoCExample {
 
     public static void main(String[] args) {
-        UserDataProvider userDataProvider = new UserDatabaseProvider();
-        UserManager userManagerWithDB = new UserManager(userDataProvider);
+
+        ApplicationContext context
+                = new ClassPathXmlApplicationContext("application.IoC.LooseCouplingExample.xml");
+
+//        UserDataProvider userDataProvider = new UserDatabaseProvider();
+//        UserManager userManagerWithDB = new UserManager(userDataProvider);
+        UserManager userManagerWithDB = (UserManager) context.getBean("userManagerWithUserDatabaseProvider");
         System.out.println(userManagerWithDB.getUserInfo());
 
-        WebServiceDataProvider webServiceDataProvider = new WebServiceDataProvider();
-        UserManager userManagerWithWS = new UserManager(webServiceDataProvider);
+//        WebServiceDataProvider webServiceDataProvider = new WebServiceDataProvider();
+//        UserManager userManagerWithWS = new UserManager(webServiceDataProvider);
+        UserManager userManagerWithWS = (UserManager) context.getBean("userManagerWithMongoDatabaseProvider");
         System.out.println(userManagerWithWS.getUserInfo());
 
-        UserDataProvider newDatabaseProvider = new UserDatabaseProvider();
-        UserManager userManagerWithNewDB = new UserManager(newDatabaseProvider);
+//        UserDataProvider newDatabaseProvider = new UserDatabaseProvider();
+//        UserManager userManagerWithNewDB = new UserManager(newDatabaseProvider);
+        UserManager userManagerWithNewDB = (UserManager) context.getBean("userManagerWithWebServiceDatabaseProvider");
         System.out.println(userManagerWithNewDB.getUserInfo());
 
     }
